@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Imputation Result</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li style="font-size: 20px">
+          <a href="DashBoard.html">Data Imputation Tools and Techniques</a>
+        </li>
+        <li style="float: right"><a href="#">Imputation Algorithm</a></li>
+        <li style="float: right"><a href="#">Compare Algorithm</a></li>
+      </ul>
+    </nav>
+    <div class="Statistics">
+      <h3>Mean</h3>
+      <div class="Stats-flex">
+        <div class="pi-chart">
+          <canvas id="pieChart" width="200" height="200"></canvas>
+        </div>
+        <div class="histogram"></div>
+      </div>
+    </div>
+
+    <div class="Data-info">
+      <li>Mean: XXX</li>
+
+      <li>Median: XXX</li>
+
+      <li>Standard Deviation: XXX</li>
+    </div>
+
+    <script>
+      // Data for the pie chart (percentages)
+      const data = [55, 45];
+
+      // Colors for each segment
+      const colors = ["#ED551A", "#0171EB", "#6666ff"];
+
+      const canvas = document.getElementById("pieChart");
+      const context = canvas.getContext("2d");
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = canvas.width / 2;
+
+      let startAngle = 0;
+      let endAngle = 0;
+
+      for (let i = 0; i < data.length; i++) {
+        endAngle = startAngle + (data[i] / 100) * (Math.PI * 2);
+
+        // Draw the pie segment
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.arc(centerX, centerY, radius, startAngle, endAngle, false);
+        context.fillStyle = colors[i];
+        context.fill();
+
+        // Draw the percentage label at the center of the segment
+        const labelAngle = startAngle + (endAngle - startAngle) / 2;
+        const labelX = centerX + Math.cos(labelAngle) * radius * 0.6; // Adjust 0.6 for label positioning
+        const labelY = centerY + Math.sin(labelAngle) * radius * 0.6; // Adjust 0.6 for label positioning
+        context.fillStyle = "#fff"; // Set label color
+        context.font = "12px senserif"; // Set label font
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(data[i] + "%", labelX, labelY);
+
+        startAngle = endAngle;
+      }
+    </script>
+  </body>
+</html>

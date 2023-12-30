@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #pieChart {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+      }
+    </style>
+    <title>Pie Chart</title>
+  </head>
+  <body>
+    <canvas id="pieChart" width="200" height="200"></canvas>
+
+    <script>
+      // Data for the pie chart (percentages)
+      const data = [25, 30, 45];
+
+      // Colors for each segment
+      const colors = ["#ff6666", "#66ff66", "#6666ff"];
+
+      const canvas = document.getElementById("pieChart");
+      const context = canvas.getContext("2d");
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = canvas.width / 2;
+
+      let startAngle = 0;
+      let endAngle = 0;
+
+      for (let i = 0; i < data.length; i++) {
+        endAngle = startAngle + (data[i] / 100) * (Math.PI * 2);
+
+        // Draw the pie segment
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.arc(centerX, centerY, radius, startAngle, endAngle, false);
+        context.fillStyle = colors[i];
+        context.fill();
+
+        // Draw the percentage label at the center of the segment
+        const labelAngle = startAngle + (endAngle - startAngle) / 2;
+        const labelX = centerX + Math.cos(labelAngle) * radius * 0.6; // Adjust 0.6 for label positioning
+        const labelY = centerY + Math.sin(labelAngle) * radius * 0.6; // Adjust 0.6 for label positioning
+        context.fillStyle = "#000"; // Set label color
+        context.font = "12px Arial"; // Set label font
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(data[i] + "%", labelX, labelY);
+
+        startAngle = endAngle;
+      }
+    </script>
+  </body>
+</html>

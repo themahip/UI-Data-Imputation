@@ -5,35 +5,27 @@ body {
   background-color: #E0E0E0;
 }
 
-nav {
-  background-color: #004D31;
-  padding: 15px;
-  text-align: center;
-  height: 60px;
-}
-
-.main-heading{
-  color: white;
-  font-size: 20px;
-}
-
 nav ul {
+  background-color: #004D31;
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  overflow: hidden;
+  text-align: center;
 
-nav li {
-  margin: 0 15px;
+}
+nav li{
+  float: left;
 }
 
 nav a {
+  display: block;
   text-decoration: none;
   color: white;
   font-weight: bold;
+  padding: 24px 36px;
+  float: right;
+  
 }
 
 .file-upload-div{
@@ -97,7 +89,17 @@ nav a {
   width: 500px;
   height: 400px;
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+#pieChart {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
 .histogram{
   background-color: white;
   width: 500px;
@@ -133,7 +135,7 @@ nav a {
 
 .Com-Imputation{
   margin: 30px 80px;
-  height: 400px;
+  height: 300px;
   padding: 30px 100px;
   border-radius: 20px;
   background-color: #022E70;
@@ -151,4 +153,13 @@ nav a {
   background-color:#2CBC55;
   border-radius:  8px;
   border: none;
+}
+.Com-Imputation input{
+  margin-top: 30px;
+  padding: 10px;
+  width: 200px;
+  border: none;
+  border-radius: 8px;
+  background-color: #DD4848;
+  color: white;
 }
