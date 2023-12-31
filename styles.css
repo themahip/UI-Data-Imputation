@@ -6,7 +6,7 @@ body {
 }
 
 nav ul {
-  background-color: #004D31;
+  background-color: #0B0000;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -29,7 +29,7 @@ nav a {
 }
 
 .file-upload-div{
-  background-color: #022E70;
+  background-color: #271313;
   margin: 30px 80px;
   height: 350px;
   padding: 30px 100px;
@@ -46,8 +46,13 @@ nav a {
   border-radius: 8px;
   width: 200px;
   border: none;
-  background-color: #2CBC55;
+  color: white;
+  background-color: #830404;
 }
+.file-upload-div button:hover{
+  background-color: #B10707;
+}
+
 .file-upload{
   background-color: #A9A9A9;
   padding: 15px;
@@ -64,14 +69,14 @@ nav a {
   width: 200px;
   border: none;
   border-radius: 8px;
-  background-color: #DD4848;
+  background-color: #830404;
   color: white;
 }
 .Select-column select{
   padding: 20px;
   display: block;
   color: white;
-  background-color:#2CBC55;
+  background-color:#830404;
   border-radius:  8px;
   border: none;
 
@@ -112,7 +117,7 @@ nav a {
   width: 300px;
   padding: 20px 100px;
   border-radius: 20px;
-  background-color: #022E70;
+  background-color: #271313;
   color: white;
   align-items: center;
   display: grid;
@@ -124,7 +129,7 @@ nav a {
   height: 200px;
   padding: 30px 100px;
   border-radius: 20px;
-  background-color: #022E70;
+  background-color: #271313;
   color: white;
 }
 
@@ -138,7 +143,7 @@ nav a {
   height: 300px;
   padding: 30px 100px;
   border-radius: 20px;
-  background-color: #022E70;
+  background-color: #271313;
   color: white;
 }
 .Compare{
@@ -150,7 +155,7 @@ nav a {
   padding: 20px;
   display: block;
   color: white;
-  background-color:#2CBC55;
+  background-color:#830404;
   border-radius:  8px;
   border: none;
 }
@@ -160,6 +165,28 @@ nav a {
   width: 200px;
   border: none;
   border-radius: 8px;
-  background-color: #DD4848;
+  background-color: #830404;
   color: white;
+}
+
+.SelectMainContainer{
+  display: flex;
+  gap: 20px;
+}
+
+.Download button{
+  margin: 10px 80px;
+  padding: 10px;
+  width: 180px;
+  border-radius: 8px;
+  background-color: #830404;
+  color: white;
+  border: none;
+}
+.Download button:hover{
+  background-color: #B10707;
+}
+.DataInfoMainContainer{
+  display: flex;
+  gap:50px;
 }
