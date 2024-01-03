@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style></style>
     <title>Imputation Result</title>
     <link rel="stylesheet" href="styles.css" />
     <link
@@ -72,11 +73,21 @@
       </form>
     </div>
 
+    <!--Pie chart and histogram-->
     <div id="targetDivStats" class="Statistics">
       <h3>Data Statistics</h3>
       <div class="Stats-flex">
         <div class="pi-chart">
-          <canvas id="pieChart" width="200" height="200"></canvas>
+          <div class="hello">
+            <canvas
+              id="pieChart2"
+              width="400"
+              height="400"
+              data-values="50,50"
+            ></canvas>
+            <input type="hidden" id="percentageValues2" value="50,50" />
+            <div class="legend" id="legend2"></div>
+          </div>
         </div>
 
         <div class="histogram"></div>
@@ -136,23 +147,39 @@
         <input type="submit" value="Impute" />
       </div>
     </div>
+
+    <!--Pie chart and histogram -->
     <div id="traget-div" class="Statistics">
-      <h3>Mean</h3>
+      <h3>Linear Interpolation Algorithm</h3>
       <div class="Stats-flex">
         <div class="pi-chart">
-          <canvas id="pieChart" width="200" height="200"></canvas>
+          <div class="hello">
+            <canvas
+              id="pieChart1"
+              width="400"
+              height="400"
+              data-values="20,80"
+            ></canvas>
+            <input type="hidden" id="percentageValues1" value="20,80" />
+            <div class="legend" id="legend1"></div>
+          </div>
         </div>
-        <div class="histogram"></div>
+        <div class="histogram">
+          <img src="Interpolation.png" alt="" />
+        </div>
       </div>
     </div>
 
+    <!--Data Content of the histogram and piechart -->
     <div class="DataInfoMainContainer">
       <div class="Data-info">
-        <li>Mean: XXX</li>
+        <li>Total Rows: 50000</li>
 
-        <li>Median: XXX</li>
-
-        <li>Standard Deviation: XXX</li>
+        <li>Total Nan Values: 0</li>
+        <li>Nan Percentage: 0.0</li>
+        <li>Mean: 224678.686851219</li>
+        <li>Median: 224710.64332488598</li>
+        <li>SD: 72484.70853122688</li>
       </div>
       <div class="Data-info">
         <li>Mean: XXX</li>
@@ -165,43 +192,76 @@
     <div class="Download"><button>Download</button></div>
 
     <script>
-      // Data for the pie chart (percentages)
-      const data = [55, 45];
+      function drawPieChart(canvasId, legendId, colors) {
+        const canvas = document.getElementById(canvasId);
+        const context = canvas.getContext("2d");
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = canvas.width / 2;
 
-      // Colors for each segment
-      const colors = ["#ED551A", "#0171EB", "#6666ff"];
+        const legend = document.getElementById(legendId);
+        legend.innerHTML = ""; // Clear previous legend items
 
-      const canvas = document.getElementById("pieChart");
-      const context = canvas.getContext("2d");
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const radius = canvas.width / 2;
+        const percentageValues = document
+          .getElementById(
+            "percentageValues" + canvasId.charAt(canvasId.length - 1)
+          )
+          .value.split(",");
 
-      let startAngle = 0;
-      let endAngle = 0;
+        let startAngle = 0;
+        let endAngle = 0;
 
-      for (let i = 0; i < data.length; i++) {
-        endAngle = startAngle + (data[i] / 100) * (Math.PI * 2);
+        for (let i = 0; i < percentageValues.length; i++) {
+          endAngle =
+            startAngle + (parseInt(percentageValues[i]) / 100) * (Math.PI * 2);
 
-        // Draw the pie segment
-        context.beginPath();
-        context.moveTo(centerX, centerY);
-        context.arc(centerX, centerY, radius, startAngle, endAngle, false);
-        context.fillStyle = colors[i];
-        context.fill();
+          // Draw the pie segment
+          context.beginPath();
+          context.moveTo(centerX, centerY);
+          context.arc(centerX, centerY, radius, startAngle, endAngle, false);
+          context.fillStyle = colors[i];
+          context.fill();
 
-        // Draw the percentage label at the center of the segment
-        const labelAngle = startAngle + (endAngle - startAngle) / 2;
-        const labelX = centerX + Math.cos(labelAngle) * radius * 0.6; // Adjust 0.6 for label positioning
-        const labelY = centerY + Math.sin(labelAngle) * radius * 0.6; // Adjust 0.6 for label positioning
-        context.fillStyle = "#fff"; // Set label color
-        context.font = "12px senserif"; // Set label font
-        context.textAlign = "center";
-        context.textBaseline = "middle";
-        context.fillText(data[i] + "%", labelX, labelY);
+          // Draw the percentage label at the center of the segment
+          const labelAngle = startAngle + (endAngle - startAngle) / 2;
+          const labelX = centerX + Math.cos(labelAngle) * radius * 0.8;
+          const labelY = centerY + Math.sin(labelAngle) * radius * 0.8;
+          context.fillStyle = "#000";
+          context.font = "12px Arial";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillText(percentageValues[i] + "%", labelX, labelY);
 
-        startAngle = endAngle;
+          // Add legend item
+          const legendItem = document.createElement("div");
+          legendItem.classList.add("legend-item");
+          legendItem.innerHTML = `
+          <div class="legend-color" style="background-color: ${
+            colors[i]
+          }"></div>
+          ${percentageValues[i]}% ${getColorLabel(colors[i])}
+        `;
+          legend.appendChild(legendItem);
+
+          startAngle = endAngle;
+        }
       }
+
+      // Function to get color label
+      function getColorLabel(color) {
+        switch (color) {
+          case "#ff6666":
+            return "Nan";
+          case "#66ff66":
+            return "value";
+        }
+      }
+
+      // Example usage with different data values
+      drawPieChart("pieChart1", "legend1", ["#ff6666", "#66ff66"]);
+      drawPieChart("pieChart2", "legend2", ["#ff6666", "#66ff66"]);
+      drawPieChart("pieChart3", "legend3", ["#ff6666", "#66ff66"]);
+      // Add more calls with different IDs and data values as needed
     </script>
   </body>
 </html>

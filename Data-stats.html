@@ -83,25 +83,30 @@
           <canvas id="pieChart" width="200" height="200"></canvas>
         </div>
 
-        <div class="histogram"></div>
+        <div class="histogram">
+          <img src="datastats.png" alt="" />
+        </div>
       </div>
     </div>
 
     <div class="DataInfoMainContainer">
       <div class="Data-info">
+        <li>Mean: 224779.40055552335</li>
+
+        <li>Median: 224981.71047979215</li>
+
+        <li>SD: 76197.38783121751</li>
+        <li>Total Rows: 50000</li>
+        <li>Total Nan Values: 10000</li>
+        <li>Nan Percentage: 20.0</li>
+      </div>
+      <!-- <div class="Data-info">
         <li>Mean: XXX</li>
 
         <li>Median: XXX</li>
 
         <li>Standard Deviation: XXX</li>
-      </div>
-      <div class="Data-info">
-        <li>Mean: XXX</li>
-
-        <li>Median: XXX</li>
-
-        <li>Standard Deviation: XXX</li>
-      </div>
+      </div> -->
     </div>
 
     <div class="Sel-Imputation">
@@ -142,7 +147,7 @@
     <!-- Script for making pie chart-->>
     <script>
       // Data for the pie chart (percentages)
-      const data = [55, 45];
+      const data = [20, 80];
 
       // Colors for each segment
       const colors = ["#ED551A", "#0171EB", "#6666ff"];
